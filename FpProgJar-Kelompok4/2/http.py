@@ -12,7 +12,8 @@ class HttpServer:
 		self.types={}
 		self.types['.pdf']='application/pdf'
 		self.types['.jpg']='image/jpeg'
-		
+		self.types['.txt']='text/plain'
+		self.types['.html']='text/html'
 	def response(self,kode=404,message='Not Found',messagebody=bytes(),headers={}):
 		tanggal = datetime.now().strftime('%c')
 		resp=[]
@@ -62,15 +63,12 @@ class HttpServer:
 	def http_get(self,object_address,headers):
 		object_address = unquote(object_address)
 		print(f"ADDRESS : {object_address}")
-		files = glob('./files/*')
+		files = glob('./*.txt')
 		for i in range(0, len(files)):
 			files[i] = Path(files[i])
-		dir=Path('./files/')
+		dir=Path('./')
 		if (object_address == '/'):
-			list_dir_message = ''
-			for file in files:
-				list_dir_message += str(file) + "\n"
-			return self.response(200,'OK',list_dir_message,dict())
+			return self.response(200,'OK','ini server http',dict())
 
 		object_address=object_address[1:]
 		print(dir / object_address)
@@ -87,14 +85,21 @@ class HttpServer:
 		headers['Content-type']=content_type
 		
 		return self.response(200,'OK',isi,headers)
-		
-			 	
-#>>> import os.path
-#>>> ext = os.path.splitext('/ak/52.png')
+
 
 if __name__=="__main__":
 	httpserver = HttpServer()
-	# d = httpserver.proses('GET / HTTP/1.0')
-	# print(d)
-	# d = httpserver.proses('GET /testing.jpg HTTP/1.0')
-	# print(d)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
